@@ -21,7 +21,7 @@ Dẫn tới [GUIDELINE_MINI.md](../../GUIDELINE_MINI.md). Tóm tắt ba ca mơ h
 - Kết quả checker và lỗi đã xử lý: 50 file
 - Danh sách ít nhất 10 ảnh đã rà bằng mắt: 'driver_050,'driver_013,'driver_15,'driver_16,'driver_21,'driver_23,'driver_24,'driver_25,'driver_12,'driver_11,
 - Lỗi bỏ sót/box/class phát hiện khi rà và cách sửa:
-- Commit khóa nhãn ban đầu:
+- Commit khóa nhãn ban đầu:https://github.com/quangkebg123/K5-L2B-DAY02-NguyenManhQuang-2A202603241-ObjectDetection/commit/07ce52d023d9b877c5c3c7183dfa7ffa86a8afbb
 
 ## 4. Gold QC và rework
 
@@ -57,16 +57,38 @@ Dẫn tới `outputs/annotation_evaluation.json` trong repo. Nếu rework, ghi �
 Trả lời bốn câu hỏi cuối notebook:
 
 1. Lớp nào recall thấp nhất? Ảnh nào minh họa?
+   Chưa thể xác định chính xác chỉ từ bốn chỉ số tổng hợp. Cần xem Recall theo từng class trong kết quả Eval.
+
+Cách xác định:
+
+- Đọc per-class metrics hoặc results.csv.
+- So sánh Recall của từng lớp.
+- Tìm ảnh có vật thể thuộc lớp đó nhưng mô hình không phát hiện được (False Negative).
+
 2. Nếu mAP50 cao nhưng mAP50–95 thấp, cần kiểm điều gì trên box?
+   Cần kiểm tra độ chính xác của Bounding Box:
+
+- Box có quá rộng, bao gồm cả nền hoặc vật thể bên cạnh không?
+- Box có quá hẹp, cắt mất một phần phương tiện không?
+- Box có ôm sát biên vật thể không?
+- Hai xe gần nhau hoặc chồng lấn có bị gộp thành một box không?
+- Box có nhất quán khi vật thể bị che khuất không?
+
 3. Lỗi class nào có thể liên quan guideline? Dữ kiện nào hỗ trợ nhận xét?
+   Cần kiểm tra các cặp class dễ nhầm lẫn, chẳng hạn:
+
+- car và van.
+- truck và van.
+- bus và truck.
+
 4. Vì sao không dùng 10 ảnh eval để train? Vai trò validation của chúng trong notebook là gì?
    Không dùng 10 ảnh eval để train vì chúng ta muốn đánh giá khách quan khả năng dự đoán của model trên những dữ liệu model chưa từng học.
 
 ## 6. Khó khăn và cách xử lý
 
-| Bước/thời điểm | Lỗi quan sát | Cách đã thử | Kết quả/còn thiếu |
-| -------------- | ------------ | ----------- | ----------------- |
-|                |              |             |                   |
+| Bước/thời điểm       | Lỗi quan sát                                            | Cách đã thử                                 | Kết quả/còn thiếu                                              |
+| -------------------- | ------------------------------------------------------- | ------------------------------------------- | -------------------------------------------------------------- |
+| Annotation trên CVAT | Bounding Box quá rộng hoặc quá hẹp, chưa ôm sát vật thể | Kiểm tra và chỉnh sửa Bounding Box thủ công | Box chính xác hơn, nhưng cần tiếp tục kiểm tra toàn bộ dataset |
 
 ## 7. Tự đánh giá theo rubric
 
