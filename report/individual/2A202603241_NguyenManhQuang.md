@@ -9,7 +9,7 @@
 - Email:
 - Lớp:
 - Link repo bài làm:
-- Link Colab đã chạy:
+- Link Colab đã chạy:https://colab.research.google.com/github/quangkebg123/K5-L2B-DAY02-NguyenManhQuang-2A202603241-ObjectDetection/blob/main/notebooks/day2_annotation_to_yolo.ipynb#scrollTo=HbO49NoqPROj
 
 ## 2. Schema và mini guideline
 
@@ -25,16 +25,16 @@ Dẫn tới [GUIDELINE_MINI.md](../../GUIDELINE_MINI.md). Tóm tắt ba ca mơ h
 
 ## 4. Gold QC và rework
 
-| Chỉ số | Trước sửa | Sau sửa nếu có |
-|---|---:|---:|
-| TP | | |
-| FP | | |
-| FN | | |
-| Precision | | |
-| Recall | | |
-| F1 | | |
-| mean_iou_of_matches | | |
-| passed | | |
+| Chỉ số              | Trước sửa | Sau sửa nếu có |
+| ------------------- | --------: | -------------: |
+| TP                  |       383 |                |
+| FP                  |       284 |                |
+| FN                  |       270 |                |
+| Precision           |    0.5742 |                |
+| Recall              |    0.5865 |                |
+| F1                  |    0.5803 |                |
+| mean_iou_of_matches |    0.8253 |                |
+| passed              |     false |                |
 
 Dẫn tới `outputs/annotation_evaluation.json` trong repo. Nếu rework, ghi ảnh, lỗi đã kiểm, quyết định sửa/giữ và lý do. Không suy nguyên nhân chỉ từ FP/FN. Không có rework thì ghi rõ.
 
@@ -44,13 +44,14 @@ Dẫn tới `outputs/annotation_evaluation.json` trong repo. Nếu rework, ghi �
 - Các tham số thay đổi so với notebook nếu có và lý do:
 - Đường dẫn best checkpoint trong phiên chạy:
 
-| Chỉ số trên 10 ảnh eval | Giá trị |
-|---|---:|
-| Precision | |
-| Recall | |
-| mAP50 | |
-| mAP50–95 | |
+| Chỉ số trên 10 ảnh eval |             Giá trị |
+| ----------------------- | ------------------: |
+| Precision               |  0.3156193471665181 |
+| Recall                  | 0.30664893617021277 |
+| mAP50                   |  0.2739647516429376 |
+| mAP50–95                | 0.20063156304965743 |
 
+"checkpoint": "/content/Day2-Lab/outputs/yolo26_runs/vehicle_annotation/weights/best.pt"
 Đặt cả 2 folder `assets/eval_predictions/` và `assets/yolo26_runs/` (giải nén từ `day2_colab_outputs.zip`) cạnh báo cáo và dẫn link tương đối. Không chỉ ghi số; chỉ ra ít nhất một ảnh và vật thể cụ thể.
 
 Trả lời bốn câu hỏi cuối notebook:
@@ -59,12 +60,13 @@ Trả lời bốn câu hỏi cuối notebook:
 2. Nếu mAP50 cao nhưng mAP50–95 thấp, cần kiểm điều gì trên box?
 3. Lỗi class nào có thể liên quan guideline? Dữ kiện nào hỗ trợ nhận xét?
 4. Vì sao không dùng 10 ảnh eval để train? Vai trò validation của chúng trong notebook là gì?
+   Không dùng 10 ảnh eval để train vì chúng ta muốn đánh giá khách quan khả năng dự đoán của model trên những dữ liệu model chưa từng học.
 
 ## 6. Khó khăn và cách xử lý
 
 | Bước/thời điểm | Lỗi quan sát | Cách đã thử | Kết quả/còn thiếu |
-|---|---|---|---|
-| | | | |
+| -------------- | ------------ | ----------- | ----------------- |
+|                |              |             |                   |
 
 ## 7. Tự đánh giá theo rubric
 
