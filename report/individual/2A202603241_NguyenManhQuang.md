@@ -4,11 +4,11 @@
 
 ## 1. Thông tin học viên
 
-- Họ tên:
-- MSSV:
-- Email:
-- Lớp:
-- Link repo bài làm:
+- Họ tên: Nguyen Manh Quang
+- MSSV:2A202603241
+- Email:quangkebg123@gmail.com
+- Lớp:L2
+- Link repo bài làm: https://github.com/quangkebg123/K5-L2B-DAY02-NguyenManhQuang-2A202603241-ObjectDetection
 - Link Colab đã chạy:https://colab.research.google.com/github/quangkebg123/K5-L2B-DAY02-NguyenManhQuang-2A202603241-ObjectDetection/blob/main/notebooks/day2_annotation_to_yolo.ipynb#scrollTo=HbO49NoqPROj
 
 ## 2. Schema và mini guideline
@@ -17,9 +17,9 @@ Dẫn tới [GUIDELINE_MINI.md](../../GUIDELINE_MINI.md). Tóm tắt ba ca mơ h
 
 ## 3. Annotation và self-QC
 
-- Số file nhãn train:
-- Kết quả checker và lỗi đã xử lý:
-- Danh sách ít nhất 10 ảnh đã rà bằng mắt:
+- Số file nhãn train: 50
+- Kết quả checker và lỗi đã xử lý: 50 file
+- Danh sách ít nhất 10 ảnh đã rà bằng mắt: 'driver_050,'driver_013,'driver_15,'driver_16,'driver_21,'driver_23,'driver_24,'driver_25,'driver_12,'driver_11,
 - Lỗi bỏ sót/box/class phát hiện khi rà và cách sửa:
 - Commit khóa nhãn ban đầu:
 
