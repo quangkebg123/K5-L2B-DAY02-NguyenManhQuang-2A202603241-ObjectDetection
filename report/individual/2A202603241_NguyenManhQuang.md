@@ -57,32 +57,16 @@ Dẫn tới `outputs/annotation_evaluation.json` trong repo. Nếu rework, ghi �
 Trả lời bốn câu hỏi cuối notebook:
 
 1. Lớp nào recall thấp nhất? Ảnh nào minh họa?
-   Chưa thể xác định chính xác chỉ từ bốn chỉ số tổng hợp. Cần xem Recall theo từng class trong kết quả Eval.
-
-Cách xác định:
-
-- Đọc per-class metrics hoặc results.csv.
-- So sánh Recall của từng lớp.
-- Tìm ảnh có vật thể thuộc lớp đó nhưng mô hình không phát hiện được (False Negative).
+   `bus` có recall thấp nhất: đường cong Recall-Confidence của lớp bus giảm về 0 ở ngưỡng confidence thấp (xem `assets/yolo26_runs/vehicle_eval/BoxR_curve.png`); confusion matrix cũng không có true positive cho bus. `drive_051` minh họa trường hợp này: nhãn ground truth có một bus nhưng ảnh dự đoán không nhận diện nó là bus (bị nhầm lớp hoặc bỏ sót). Xem [ảnh dự đoán](assets/eval_predictions/visuals/drive_051.jpg) và nhãn [drive_051.txt](../../dataset/labels/eval/drive_051.txt).
 
 2. Nếu mAP50 cao nhưng mAP50–95 thấp, cần kiểm điều gì trên box?
-   Cần kiểm tra độ chính xác của Bounding Box:
-
-- Box có quá rộng, bao gồm cả nền hoặc vật thể bên cạnh không?
-- Box có quá hẹp, cắt mất một phần phương tiện không?
-- Box có ôm sát biên vật thể không?
-- Hai xe gần nhau hoặc chồng lấn có bị gộp thành một box không?
-- Box có nhất quán khi vật thể bị che khuất không?
+   Điều đó thường cho thấy box đủ chồng lấn để đạt ngưỡng IoU 0.50 nhưng chưa định vị sát và ổn định ở các ngưỡng IoU cao hơn. Cần so sánh box dự đoán với ground truth: box lệch tâm, quá rộng/nhỏ, cắt mất xe, hoặc nhập hai xe gần nhau. Không thể kết luận nguyên nhân chỉ từ hai chỉ số; cần kiểm tra ảnh dự đoán cụ thể.
 
 3. Lỗi class nào có thể liên quan guideline? Dữ kiện nào hỗ trợ nhận xét?
-   Cần kiểm tra các cặp class dễ nhầm lẫn, chẳng hạn:
-
-- car và van.
-- truck và van.
-- bus và truck.
+   Cần kiểm tra nhầm lẫn `bus`/`van` và `car`/`van`. Trong `GUIDELINE_MINI.md`, định nghĩa `van` chưa rõ ràng, còn ca `drive_050` ghi tình huống là `car` bị cắt ảnh nhưng quyết định lại là `van` mà không nêu căn cứ phân biệt lớp. Dữ kiện đầu ra cũng đáng rà soát: nhãn `drive_053.txt` gán vật thể xe buýt lớn là class `van`, trong khi ảnh dự đoán gọi vật thể đó là `bus` ([ảnh dự đoán](assets/eval_predictions/visuals/drive_053.jpg)). Đây là dấu hiệu có thể liên quan đến ranh giới guideline/nhãn; cần người rà ảnh xác nhận, không thể khẳng định guideline là nguyên nhân duy nhất.
 
 4. Vì sao không dùng 10 ảnh eval để train? Vai trò validation của chúng trong notebook là gì?
-   Không dùng 10 ảnh eval để train vì chúng ta muốn đánh giá khách quan khả năng dự đoán của model trên những dữ liệu model chưa từng học.
+   Không đưa 10 ảnh eval vào cập nhật trọng số để tránh rò rỉ dữ liệu và giữ phép đánh giá có ý nghĩa. Tuy nhiên, theo notebook, tập này được dùng làm `val` trong lúc train và để chọn `best.pt`; vì vậy nó là validation set, không phải test set độc lập hoàn toàn. Không nên gọi đây là dữ liệu mô hình chưa từng được dùng trong quá trình phát triển.
 
 ## 6. Khó khăn và cách xử lý
 
@@ -92,8 +76,10 @@ Cách xác định:
 
 ## 7. Tự đánh giá theo rubric
 
+dc 70d
 Đối chiếu [RUBRIC.md](../../RUBRIC.md): phần nào đã có kết quả, phần nào còn thiếu hoặc chưa kiểm được. Không tự nhận hoàn thành bước chưa chạy.
 
 ## 8. Công cụ AI và tài liệu tham khảo
 
+cong cu su dung Cvat
 Ghi công cụ đã dùng, dùng ở bước nào và phần đã tự kiểm tra; không dùng thì ghi rõ. Liệt kê nguồn ngoài repo được sử dụng. Không ghi mật khẩu/token hoặc đính kèm gold train.
